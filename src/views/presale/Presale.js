@@ -4,6 +4,7 @@ import { AuthUserContext } from "../../conext";
 import { toast } from "react-toastify";
 import { presaleAbi, presaleAddress } from "../../contract/presaleContract";
 import { tokenAbi, tokenAddress } from "../../contract/tokenContract";
+import { usdtTokenAbi, usdtTokenAddress } from "../../contract/usdtContract";
 
 export default function Presale() {
     const web3 = new Web3(window.ethereum);
@@ -15,6 +16,8 @@ export default function Presale() {
     const [calculateValue, setCalculateValue] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [tokenBalance,setTokenBalance] = useState(0);
+    const [usdtBalanceOf,setUsdtBalanceOf]= useState(0);
     const { walletAddress } = useContext(AuthUserContext);
     const presaleIntegrateContract = () => {
         const presale_Contract = new web3.eth.Contract(
@@ -30,6 +33,13 @@ export default function Presale() {
         );
         return token_Contract;
     };
+    const usdtTokenokenIntegrateContract = () => {
+        const usdt_Contract = new web3.eth.Contract(
+            usdtTokenAbi,
+            usdtTokenAddress
+        );
+        return usdt_Contract;
+    };
     const getValue = async () => {
         try {
             const presaleContract = presaleIntegrateContract();
@@ -41,7 +51,8 @@ export default function Presale() {
             const totalUSDRaised = await presaleContract.methods
                 .totalUSDRaised()
                 .call();
-            setTotalUSDRaised(Number(totalUSDRaised));
+                const usdtRaised = Number(totalUSDRaised)/1e18
+            setTotalUSDRaised(usdtRaised.toFixed(2));
         } catch (e) {
             console.log("e", e);
         }
@@ -55,12 +66,15 @@ export default function Presale() {
                     const calculateBNBCost = await presaleContract.methods
                         .calculateBNBCost(weiValue)
                         .call();
+                        console.log("calculateBNBCost", calculateBNBCost);
                     const calculateValue = Number(calculateBNBCost) / 1e18;
                     setCalculateValue(calculateValue);
                 } else {
                     const calculateUSDTCost = await presaleContract.methods
                         .calculateUSDTCost(weiValue)
                         .call();
+                        console.log("calculateUSDTCost", calculateUSDTCost);
+                        
                     const calculateValue = Number(calculateUSDTCost) / 1e18;
                     setCalculateValue(calculateValue);
                 }
@@ -74,6 +88,7 @@ export default function Presale() {
     const handlePresale = async () => {
         try {
             const presaleContract = presaleIntegrateContract();
+            const usdtContract = usdtTokenokenIntegrateContract()
             const tokenContract = tokenIntegrateContract()
             if (walletAddress) {
                 if (value <= 0) {
@@ -93,7 +108,7 @@ export default function Presale() {
                             toast.success("BNB purchased successfully.");
                         }
                 } else{
-                    const approve = await tokenContract.methods.approve(presaleAddress,weiValue).send({from:walletAddress});
+                    const approve = await usdtContract.methods.approve(presaleAddress,weiValue).send({from:walletAddress});
                     if(approve){
                         const buyTokensWithUSDT = await presaleContract.methods.buyTokensWithUSDT(weiValue).send({from: walletAddress});
                         if(buyTokensWithUSDT){
@@ -103,6 +118,7 @@ export default function Presale() {
                         }
                     }
                 }
+                getValue();
             } else {
                 toast.error("Please Wallet Connect First!");
             }
@@ -112,14 +128,34 @@ export default function Presale() {
             setLoading(false)
         }
     };
+    const getBalance = async()=>{
+        try{
+            if(walletAddress){
+                const tokenContract = tokenIntegrateContract();
+                const usdtContract = usdtTokenokenIntegrateContract()
+                let tokenBalance = await tokenContract.methods.balanceOf(walletAddress).call();
+                tokenBalance = Number(tokenBalance) / 1e18
+                setTokenBalance(tokenBalance.toFixed(3))
+                let usdtBalance = await usdtContract.methods.balanceOf(walletAddress).call();
+                usdtBalance = Number(usdtBalance) / 1e18
+                setUsdtBalanceOf(usdtBalance.toFixed(3))
+            }
+           
+        }catch(e){
+            console.log("e", e)
+        }
+    }
     useEffect(() => {
         valueChange();
     }, [name, value]);
     useEffect(() => {
         getValue();
     }, []);
+    useEffect(()=>{
+        getBalance();
+    },[walletAddress])
     return (
-        <div className="max-w-lg mx-auto p-6 h-full bg-black rounded-lg shadow-lg text-white">
+        <div className="w-4/12 mx-auto p-6 h-full bg-black rounded-lg shadow-lg text-white">
             {/* Stage and Price Info */}
             <div className="text-center mb-4">
                 <h1 className="flex justify-center items-center text-[30px] md:text-[40px] lg:text-[50px] w-full font-extrabold text-red1 mb-2 md:mb-5">
@@ -140,14 +176,18 @@ export default function Presale() {
             <div className="bg-gray-800 rounded-2xl p-4">
                 <div className=" text-white mb-6">
                     <p className="flex justify-between">
-                        USDT Raised:{" "}
+                        USDT Raised:
                         <span className="font-bold text-red1">
                             {totalUSDRaised}
                         </span>
                     </p>
-                    <p className="flex justify-between">
-                        Your Purchased R2PIP:{" "}
-                        <span className="font-bold text-red1">0</span>
+                    <p className="flex justify-between mt-2">
+                        Your R2PIP Balance:
+                        <span className="font-bold text-red1">{tokenBalance}</span>
+                    </p>
+                    <p className="flex justify-between mt-2">
+                        Your USDT Balance:
+                        <span className="font-bold text-red1">{usdtBalanceOf}</span>
                     </p>
                     {/* <p className='flex justify-between'>Listing Price: <span className="font-bold text-red1">$0.07</span></p> */}
                 </div>
@@ -190,11 +230,11 @@ export default function Presale() {
                 </div>
 
                 {/* ETH Balance */}
-                <div className="text-center mb-4">
+                {/* <div className="text-center mb-4">
                     <p className="text-gray-500">
                         ETH Balance: <span className="font-bold">0</span>
                     </p>
-                </div>
+                </div> */}
 
                 {/* Amount Input Fields */}
                 <div className="flex justify-between mb-4">
@@ -206,8 +246,7 @@ export default function Presale() {
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
                         />
-                        <p className="text-center mt-2 text-gray-500">
-                            Amount in BNB/USDT
+                        <p className="text-center mt-2 text-gray-500">Amount in R2PIP you receive
                         </p>
                         {error && !value && (
                             <span className="error-message">
@@ -224,7 +263,7 @@ export default function Presale() {
                             readOnly
                         />
                         <p className="text-center mt-2 text-gray-500">
-                            Amount in LPX you receive
+                        Amount in BNB/USDT
                         </p>
                     </div>
                 </div>

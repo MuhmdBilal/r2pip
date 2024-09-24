@@ -1,4 +1,4 @@
-export const stakingAddress = "0x958478Ee0f342213A12F8f3d3b1703D274b0aEeC";
+export const stakingAddress = "0x37FF79B7f66163b7e45BEE130F8cb9E2bB85274e";
 export const stakingAbi = [
     {
         inputs: [
@@ -197,105 +197,6 @@ export const stakingAbi = [
         type: "function",
     },
     {
-        inputs: [
-            { internalType: "uint256", name: "proposalId", type: "uint256" },
-        ],
-        name: "getGovernanceProposal",
-        outputs: [
-            {
-                components: [
-                    { internalType: "string", name: "title", type: "string" },
-                    {
-                        internalType: "string",
-                        name: "description",
-                        type: "string",
-                    },
-                    {
-                        internalType: "uint256",
-                        name: "voteCount",
-                        type: "uint256",
-                    },
-                    {
-                        internalType: "uint256",
-                        name: "endTime",
-                        type: "uint256",
-                    },
-                    { internalType: "bool", name: "executed", type: "bool" },
-                    {
-                        internalType: "address",
-                        name: "proposer",
-                        type: "address",
-                    },
-                ],
-                internalType:
-                    "struct R2PIncentiveStakingProgram.GovernanceProposal",
-                name: "",
-                type: "tuple",
-            },
-        ],
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        inputs: [],
-        name: "getGovernanceProposalCount",
-        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        inputs: [{ internalType: "address", name: "staker", type: "address" }],
-        name: "getReferrer",
-        outputs: [{ internalType: "address", name: "", type: "address" }],
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        inputs: [{ internalType: "address", name: "staker", type: "address" }],
-        name: "getStakerProfile",
-        outputs: [
-            {
-                components: [
-                    {
-                        internalType: "uint256",
-                        name: "stakedBalance",
-                        type: "uint256",
-                    },
-                    {
-                        internalType: "uint256",
-                        name: "lastUnlockTimestamp",
-                        type: "uint256",
-                    },
-                    {
-                        internalType: "uint256",
-                        name: "lockedBalance",
-                        type: "uint256",
-                    },
-                    {
-                        internalType: "uint256",
-                        name: "tierLevel",
-                        type: "uint256",
-                    },
-                    {
-                        internalType: "uint256",
-                        name: "referralCount",
-                        type: "uint256",
-                    },
-                    {
-                        internalType: "uint256",
-                        name: "stakingTimestamp",
-                        type: "uint256",
-                    },
-                ],
-                internalType: "struct R2PIncentiveStakingProgram.StakerProfile",
-                name: "",
-                type: "tuple",
-            },
-        ],
-        stateMutability: "view",
-        type: "function",
-    },
-    {
         inputs: [{ internalType: "address", name: "staker", type: "address" }],
         name: "getStakingHistory",
         outputs: [
@@ -323,6 +224,13 @@ export const stakingAbi = [
         type: "function",
     },
     {
+        inputs: [{ internalType: "address", name: "staker", type: "address" }],
+        name: "getTotalStaked",
+        outputs: [{ internalType: "uint256", name: "total", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
         inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
         name: "governanceProposals",
         outputs: [
@@ -334,13 +242,6 @@ export const stakingAbi = [
             { internalType: "address", name: "proposer", type: "address" },
         ],
         stateMutability: "view",
-        type: "function",
-    },
-    {
-        inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
-        name: "lockTokens",
-        outputs: [],
-        stateMutability: "nonpayable",
         type: "function",
     },
     {
@@ -379,7 +280,7 @@ export const stakingAbi = [
         type: "function",
     },
     {
-        inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
+        inputs: [],
         name: "redeemTokens",
         outputs: [],
         stateMutability: "nonpayable",
@@ -417,12 +318,6 @@ export const stakingAbi = [
         inputs: [{ internalType: "address", name: "", type: "address" }],
         name: "stakerProfiles",
         outputs: [
-            { internalType: "uint256", name: "stakedBalance", type: "uint256" },
-            {
-                internalType: "uint256",
-                name: "lastUnlockTimestamp",
-                type: "uint256",
-            },
             { internalType: "uint256", name: "lockedBalance", type: "uint256" },
             { internalType: "uint256", name: "tierLevel", type: "uint256" },
             { internalType: "uint256", name: "referralCount", type: "uint256" },

@@ -4,6 +4,7 @@ import Web3 from "web3";
 import { stakingAbi, stakingAddress } from "../../contract/stakingContract";
 import { AuthUserContext } from "../../conext";
 import { toast } from "react-toastify";
+import { tokenAbi, tokenAddress } from "../../contract/tokenContract";
 export default function Stack() {
     const { pathname } = useLocation();
     const web3 = new Web3(window.ethereum);
@@ -12,6 +13,13 @@ export default function Stack() {
     const [addressValidationError, setAddressValidationError] = useState(false);
     const { walletAddress } = useContext(AuthUserContext);
     const [registerLoading, setRegisterLoading] = useState(false);
+    const [stakingError, setStakingError] = useState(false);
+    const [value, setValue] = useState("");
+    const [stakingLoading, setStakingLoading] = useState(false);
+    const [redeemLoading, setRedeemLoading] = useState(false);
+    const [unlockLoading, setUnlockLoading] = useState(false);
+    const [tokenBalance, setTokenBalance] = useState(0);
+    const [totalStaked, setTotalStaked] = useState(0);
     const satkingIntegrateContract = () => {
         const staking_Contract = new web3.eth.Contract(
             stakingAbi,
@@ -19,10 +27,108 @@ export default function Stack() {
         );
         return staking_Contract;
     };
+    const tokenIntegrateContract = () => {
+        const token_Contract = new web3.eth.Contract(tokenAbi, tokenAddress);
+        return token_Contract;
+    };
     const validateAddress = (address) => {
-        const regex = /^0x[a-fA-F0-9]{40}$/; 
+        const regex = /^0x[a-fA-F0-9]{40}$/;
         return regex.test(address);
     };
+    const handleStaking = async () => {
+        try {
+            const tokenContract = tokenIntegrateContract();
+            const stakingCOntract = satkingIntegrateContract();
+            if (!value) {
+                setStakingError(true);
+                return;
+            }
+            const weiValue = web3.utils.toWei(value, "ether");
+            if (walletAddress) {
+                setStakingLoading(true);
+                await tokenContract.methods
+                    .approve(stakingAddress, weiValue)
+                    .send({ from: walletAddress });
+                const stakeTokens = await stakingCOntract.methods
+                    .stakeTokens(weiValue)
+                    .send({ from: walletAddress });
+                if (stakeTokens) {
+                    toast.success("Tokens Staked Successfully!");
+                    setValue("");
+                    setStakingError(false);
+                }
+            } else {
+                toast.error("Please Wallet Connect First!");
+            }
+        } catch (e) {
+            console.log("e", e);
+        } finally {
+            setStakingLoading(false);
+        }
+    };
+    const handleRedeemTokens = async () => {
+        try {
+            const stakingCOntract = satkingIntegrateContract();
+            if (walletAddress) {
+                setRedeemLoading(true);
+                const redeemTokens = await stakingCOntract.methods
+                    .redeemTokens()
+                    .send({ from: walletAddress });
+                if (redeemTokens) {
+                    toast.success("Tokens Redeem Successfully!");
+                }
+            } else {
+                toast.error("Please Wallet Connect First!");
+            }
+        } catch (e) {
+            console.log("e", e);
+        } finally {
+            setRedeemLoading(false);
+        }
+    };
+    const handleUnlockTokens = async () => {
+        try {
+            const stakingCOntract = satkingIntegrateContract();
+            if (walletAddress) {
+                setUnlockLoading(true);
+                const unlockTokens = await stakingCOntract.methods
+                    .unlockTokens()
+                    .send({ from: walletAddress });
+                if (unlockTokens) {
+                    toast.success("Tokens Unlocked Successfully!");
+                }
+            } else {
+                toast.error("Please Wallet Connect First!");
+            }
+        } catch (e) {
+            console.log("e", e);
+        } finally {
+            setUnlockLoading(false);
+        }
+    };
+    const getValue = async () => {
+        try {
+            const tokenContract = tokenIntegrateContract();
+            const stakingCOntract = satkingIntegrateContract();
+            if (walletAddress) {
+                let getTotalStaked = await stakingCOntract.methods
+                    .getTotalStaked(walletAddress)
+                    .call();
+                getTotalStaked = Number(getTotalStaked) / 1e18;
+                setTotalStaked(getTotalStaked.toFixed(3));
+                let tokenBalance = await tokenContract.methods
+                    .balanceOf(walletAddress)
+                    .call();
+                tokenBalance = Number(tokenBalance) / 1e18;
+                setTokenBalance(tokenBalance.toFixed(3));
+            }
+        } catch (e) {
+            console.log("e", e);
+        }
+    };
+    useEffect(()=>{
+        getValue()
+    },[walletAddress])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
@@ -68,15 +174,21 @@ export default function Stack() {
             <div className=" flex flex-col justify-center items-center bg-black text-white p-6 w-full max-w-5xl">
                 <div className="flex flex-col md:flex-row justify-between gap-12 w-full  rounded-lg my-8">
                     <div className="flex justify-between rounded-full items-center  py-2 border gap-5 w-full">
-                        <span className="text-gray-400 px-4">Token Price</span>
-                        <span className="font-bold text-xl px-4">0</span>
+                        <span className=" px-4 font-semibold">
+                            R2PIP Price
+                        </span>
+                        <span className="font-bold text-xl px-4">
+                            {tokenBalance}
+                        </span>
                     </div>
                     <div className="flex justify-between rounded-full items-center  py-2 border gap-5 w-full">
-                        <span className="text-gray-400 px-4">NFT Supply</span>
-                        <span className="font-bold text-xl px-4">0</span>
+                        <span className=" px-4 font-semibold">Total Staked</span>
+                        <span className="font-bold text-xl px-4">
+                            {totalStaked}
+                        </span>
                     </div>
                     <div className="flex justify-between rounded-full items-center py-2 border gap-5 w-full">
-                        <span className="text-gray-400 px-4">NFT Balance</span>
+                        <span className=" px-4 font-semibold">NFT Balance</span>
                         <span className="font-bold text-xl px-4">0</span>
                     </div>
                 </div>
@@ -114,24 +226,45 @@ export default function Stack() {
                 </div>
                 {/* Form Section */}
                 <div className="bg-gray-800 p-8 rounded-lg shadow-lg  w-full">
-                    <input
+                    {/* <input
                         type="text"
                         placeholder="0xB705D6c5d857F7A34ECDF5C7F12550c99A67ee7f"
                         className="w-full mb-4 p-3 rounded-lg bg-gray-700 text-white"
                         disabled
-                    />
+                    /> */}
                     <input
                         type="number"
                         placeholder="0"
                         className="w-full mb-4 p-3 rounded-lg bg-gray-700 text-white"
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
                     />
-
-                    <div className="flex flex-col md:flex-row gap-5 justify-between">
-                        <button className="bg-transparent text-white border font-bold px-6 py-2 rounded-lg shadow-md">
-                            Approve
+                    {stakingError && !value && (
+                        <span className="error-message">
+                            Please Enter Value
+                        </span>
+                    )}
+                    <div className="flex flex-col md:flex-row gap-5 justify-center mt-4">
+                        <button
+                            className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
+                            onClick={handleStaking}
+                            disabled={registerLoading}
+                        >
+                            {stakingLoading ? "Loading..." : "Staking"}
                         </button>
-                        <button className="bg-red1 text-white font-bold px-6 py-2 rounded-lg shadow-md">
-                            Mint
+                        <button
+                            className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
+                            onClick={handleRedeemTokens}
+                            disabled={redeemLoading}
+                        >
+                            {redeemLoading ? "Loading..." : "Redeem Tokens"}
+                        </button>
+                        <button
+                            className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
+                            onClick={handleUnlockTokens}
+                            disabled={unlockLoading}
+                        >
+                            {unlockLoading ? "Loading..." : "Unlock Tokens"}
                         </button>
                     </div>
                 </div>
