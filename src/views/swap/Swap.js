@@ -11,10 +11,22 @@ export default function Swap() {
     const [amount, setAmount] = useState('');
     const [currencyFrom, setCurrencyFrom] = useState('R2PIP');
     const [currencyTo, setCurrencyTo] = useState('GUAP');
-
+    const [amountFrom, setAmountFrom] = useState('');
+    const [amountTo, setAmountTo] = useState('');
     const handleSwap = () => {
-        alert(`Swapping ${amount} ${currencyFrom} for ${currencyTo}`);
-    };
+        // Swap currencies
+        const tempCurrency = currencyFrom;
+        setCurrencyFrom(currencyTo);
+        setCurrencyTo(tempCurrency);
+    
+        // Swap amounts
+        const tempAmount = amountFrom;
+        setAmountFrom(amountTo);
+        setAmountTo(tempAmount);
+      };  
+    // const handleSwap = () => {
+    //     alert(`Swapping ${amount} ${currencyFrom} for ${currencyTo}`);
+    // };
 
     return (
         <div className='flex flex-col items-center my-5 justify-center min-h-screen h-full mx-1'>
@@ -28,47 +40,49 @@ export default function Swap() {
                 </div>
 
                 <div className='flex flex-col gap-4 items-center justify-between mb-6'>
-                    {/* First select */}
-                    <select
-                        value={currencyFrom}
-                        onChange={(e) => setCurrencyFrom(e.target.value)}
-                        className='border border-gray-300 rounded-lg w-full text-gray-400 bg-transparent p-3 focus:outline-none'
-                    >
-                        <option value='R2PIP'>R2PIP</option>
-                        <option value='GUAP'>GUAP</option>
-                    </select>
+      {/* First select */}
+      <select
+        value={currencyFrom}
+        onChange={(e) => setCurrencyFrom(e.target.value)}
+        className='border border-gray-300 rounded-lg w-full text-gray-400 bg-transparent p-3 focus:outline-none'
+      >
+        <option value='R2PIP'>R2PIP</option>
+        <option value='GUAP'>GUAP</option>
+      </select>
 
-                    {/* Input field */}
-                    <input
-                        type='number'
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        className='rounded-lg p-3 w-full text-gray-300 bg-transparent border focus:outline-none'
-                        placeholder='0.0'
-                    />
+      {/* First input field */}
+      <input
+        type='number'
+        value={amountFrom}
+        onChange={(e) => setAmountFrom(e.target.value)}
+        className='rounded-lg p-3 w-full text-gray-300 bg-transparent border focus:outline-none'
+        placeholder='0.0'
+      />
 
-                    {/* Arrow icon */}
-                    <div>
-                        <SiConvertio size={50} className='text-red1' />
-                    </div>
+      {/* Arrow icon */}
+      <div onClick={handleSwap} className="cursor-pointer">
+        <SiConvertio size={50} className='text-red1' />
+      </div>
 
-                    {/* Dropdown */}
-                    <select
-                        value={currencyTo}
-                        onChange={(e) => setCurrencyTo(e.target.value)}
-                        className='border border-gray-300 rounded-lg w-full text-gray-400 bg-transparent p-3 focus:outline-none'
-                    >
-                        <option value='GUAP'>GUAP</option>
-                        <option value='R2PIP'>R2PIP</option>
-                    </select>
+      {/* Second select */}
+      <select
+        value={currencyTo}
+        onChange={(e) => setCurrencyTo(e.target.value)}
+        className='border border-gray-300 rounded-lg w-full text-gray-400 bg-transparent p-3 focus:outline-none'
+      >
+        <option value='GUAP'>GUAP</option>
+        <option value='R2PIP'>R2PIP</option>
+      </select>
 
-                    {/* Another Input field */}
-                    <input
-                        type='number'
-                        className='rounded-lg p-3 w-full text-gray-300 bg-transparent border focus:outline-none'
-                        placeholder='0.0'
-                    />
-                </div>
+      {/* Second input field */}
+      <input
+        type='number'
+        value={amountTo}
+        onChange={(e) => setAmountTo(e.target.value)}
+        className='rounded-lg p-3 w-full text-gray-300 bg-transparent border focus:outline-none'
+        placeholder='0.0'
+      />
+    </div>
 
                 <button
                     onClick={handleSwap}
