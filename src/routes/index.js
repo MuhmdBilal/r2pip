@@ -10,6 +10,7 @@ import Presale from '../views/presale/Presale';
 import Purchase from '../views/purchase/Purchase';
 import Stack from '../views/stake/Stack';
 import Swap from '../views/swap/Swap';
+import Vote from '../views/vote/Vote';
 
 
 let routes = [
@@ -72,6 +73,11 @@ let routes = [
 	{
 		path: '/stake',
 		component: Stack,
+		layout: 'main',
+	},
+	{
+		path: '/vote',
+		component: Vote,
 		layout: 'main',
 	},
 ];

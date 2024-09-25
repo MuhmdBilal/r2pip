@@ -203,3 +203,28 @@ input[type="number"] {
   color: #bb1111;
   /* margin-top: 5px; */
 }
+
+
+
+tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+tr:nth-child(even) {
+  background-color: #ecedf3;
+}
+
+.table-container {
+  box-shadow: 0 4px 8px #0000001a; /* Adds a shadow */
+  border-radius: 8px;
+  overflow: hidden; 
+}
+
+.table-container thead tr {
+  background-color: #c21b0c;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+  height: 60px;
+  font-size: larger;
+}

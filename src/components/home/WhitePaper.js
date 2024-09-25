@@ -21,13 +21,13 @@ const WhitePaper = () => {
                     <FaFilePdf size={50} />
                     <h1 className='text-[30px] md:text-[40px] lg:text-[50px] font-bold py-4 text-center text-red1 '>
                         Download Our Free{" "}
-                        <span className=" text-center text-white underline">White Paper</span>{" "}
+                        <span className=" text-center text-white underline">Lite Paper</span>{" "}
                     </h1>
                     <a href="/R2PIP-Lite Paper.pdf" download className="no-underline hover:no-underline">
                         <button
                             className=" px-4  md:px-2 mt-3 text-[18px]  border-[1px] border-[white]/30 hover:bg-red1 rounded-lg py-2  md:py-[13px]  transition-all duration-300 text-white font-semibold   flex gap-x-3 items-center"
                         >
-                            <MdDownload size={20} /> White Paper
+                            <MdDownload size={20} /> Lite Paper
                         </button>{" "}
                     </a>
                 </div>

@@ -36,8 +36,8 @@ export default function ShopR2PIP() {
                 <Link
                     to={item.link}
                     key={index}
-                    style={{ textDecoration: 'none' }}
-                    className='w-full no-underline'>
+                    // style={{ textDecoration: 'none' }}
+                    className='w-full'>
                     <div className='p-4 rounded-lg shadow-lg flex flex-col items-center text-center justify-center w-full mx-auto'>
                         <img src={item.logo} alt={item.heading} className='h-28 w-28 rounded-full mx-auto mb-4' />
                         <h3 className='text-xl text-red1 font-semibold mb-2'>{item.heading}</h3>

@@ -23,7 +23,7 @@ const Phase3 = () => {
               // "Listing on CoinGecko",
               "Listing on CoinMarketCap (CMC)",
               "Grow Twitter fo lowers to 1500 ",
-              "Grow Telegram fo lowers to 1500",
+              "Grow Telegram followers to 1500",
               "Engage Youtube influencers ",
               " Achieve a market cap of $ 5M"
             ].map((item, idx) => (
