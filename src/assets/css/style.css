@@ -76,7 +76,9 @@ html{
   background-color: #f0f0f0;
   /* Track color */
 }
-
+.bg-red2{
+  background-color: rgb(194 27 12 / 44%);
+}
 ::-webkit-scrollbar-thumb {
   background-color: #c21b0c;
   /* Scrollbar color */

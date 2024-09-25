@@ -74,6 +74,9 @@ function Navbar() {
         <Link to="/swap" className="header">
           <p className="text-white">Swap</p>
         </Link>
+        <Link to="/vote" className="header">
+          <p className="text-white">Vote</p>
+        </Link>
         <Link to="/about" className="header">
           <p className="text-white">About Us</p>
         </Link>
@@ -133,6 +136,9 @@ function Navbar() {
         </Link>
         <Link to="/swap" className="header">
           <p className="text-white">Swap</p>
+        </Link>
+        <Link to="/vote" className="header">
+          <p className="text-white">Vote</p>
         </Link>
           <Link to="/about" onClick={Menu} className="header-mob">
             <p className="text-[16px] mt-3 my-3 no-underline">About Us</p>

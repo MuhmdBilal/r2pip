@@ -1,4 +1,4 @@
-export const stakingAddress = "0x37FF79B7f66163b7e45BEE130F8cb9E2bB85274e";
+export const stakingAddress = "0x1E8A96A2bA830A79B8CB055C0A6389e8A6349e1A";
 export const stakingAbi = [
     {
         inputs: [
@@ -80,7 +80,7 @@ export const stakingAbi = [
                 type: "uint256",
             },
         ],
-        name: "TokensLocked",
+        name: "TokensRedeemed",
         type: "event",
     },
     {
@@ -98,23 +98,10 @@ export const stakingAbi = [
                 name: "amount",
                 type: "uint256",
             },
-        ],
-        name: "TokensRedeemed",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: true,
-                internalType: "address",
-                name: "staker",
-                type: "address",
-            },
             {
                 indexed: false,
                 internalType: "uint256",
-                name: "amount",
+                name: "lockDuration",
                 type: "uint256",
             },
         ],
@@ -134,6 +121,12 @@ export const stakingAbi = [
                 indexed: false,
                 internalType: "uint256",
                 name: "amount",
+                type: "uint256",
+            },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "penaltyCharged",
                 type: "uint256",
             },
         ],
@@ -198,24 +191,27 @@ export const stakingAbi = [
     },
     {
         inputs: [{ internalType: "address", name: "staker", type: "address" }],
-        name: "getStakingHistory",
+        name: "getStakes",
         outputs: [
             {
                 components: [
                     {
                         internalType: "uint256",
-                        name: "timestamp",
-                        type: "uint256",
-                    },
-                    { internalType: "string", name: "action", type: "string" },
-                    {
-                        internalType: "uint256",
                         name: "amount",
                         type: "uint256",
                     },
+                    {
+                        internalType: "uint256",
+                        name: "timestamp",
+                        type: "uint256",
+                    },
+                    {
+                        internalType: "uint256",
+                        name: "lockDuration",
+                        type: "uint256",
+                    },
                 ],
-                internalType:
-                    "struct R2PIncentiveStakingProgram.StakingTransaction[]",
+                internalType: "struct R2PIncentiveStakingProgram.Stake[]",
                 name: "",
                 type: "tuple[]",
             },
@@ -226,7 +222,16 @@ export const stakingAbi = [
     {
         inputs: [{ internalType: "address", name: "staker", type: "address" }],
         name: "getTotalStaked",
-        outputs: [{ internalType: "uint256", name: "total", type: "uint256" }],
+        outputs: [
+            { internalType: "uint256", name: "totalStaked", type: "uint256" },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [{ internalType: "address", name: "user", type: "address" }],
+        name: "getUserProposalIDs",
+        outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
         stateMutability: "view",
         type: "function",
     },
@@ -254,20 +259,6 @@ export const stakingAbi = [
     {
         inputs: [],
         name: "maxStakePerTransaction",
-        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        inputs: [],
-        name: "maximumLockDuration",
-        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        stateMutability: "view",
-        type: "function",
-    },
-    {
-        inputs: [],
-        name: "minimumLockDuration",
         outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
         stateMutability: "view",
         type: "function",
@@ -308,7 +299,10 @@ export const stakingAbi = [
         type: "function",
     },
     {
-        inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
+        inputs: [
+            { internalType: "uint256", name: "amount", type: "uint256" },
+            { internalType: "uint256", name: "lockDuration", type: "uint256" },
+        ],
         name: "stakeTokens",
         outputs: [],
         stateMutability: "nonpayable",
@@ -368,6 +362,16 @@ export const stakingAbi = [
         name: "unlockTokens",
         outputs: [],
         stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            { internalType: "address", name: "", type: "address" },
+            { internalType: "uint256", name: "", type: "uint256" },
+        ],
+        name: "userProposals",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
         type: "function",
     },
     {

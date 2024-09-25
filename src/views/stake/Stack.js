@@ -20,6 +20,8 @@ export default function Stack() {
     const [unlockLoading, setUnlockLoading] = useState(false);
     const [tokenBalance, setTokenBalance] = useState(0);
     const [totalStaked, setTotalStaked] = useState(0);
+    const [reeeDisable,setRedeemDisable] = useState(true);
+    const [lockDuration,setLockDuration] = useState('')
     const satkingIntegrateContract = () => {
         const staking_Contract = new web3.eth.Contract(
             stakingAbi,
@@ -39,10 +41,13 @@ export default function Stack() {
         try {
             const tokenContract = tokenIntegrateContract();
             const stakingCOntract = satkingIntegrateContract();
-            if (!value) {
+            if (!value || !lockDuration) {
                 setStakingError(true);
                 return;
             }
+            const currentTime = new Date();
+        const lockTime = new Date(lockDuration);
+        const lockDurationInSeconds = Math.floor((lockTime.getTime() - currentTime.getTime()) / 1000);
             const weiValue = web3.utils.toWei(value, "ether");
             if (walletAddress) {
                 setStakingLoading(true);
@@ -50,12 +55,13 @@ export default function Stack() {
                     .approve(stakingAddress, weiValue)
                     .send({ from: walletAddress });
                 const stakeTokens = await stakingCOntract.methods
-                    .stakeTokens(weiValue)
+                    .stakeTokens(weiValue, lockDurationInSeconds)
                     .send({ from: walletAddress });
                 if (stakeTokens) {
                     toast.success("Tokens Staked Successfully!");
                     setValue("");
                     setStakingError(false);
+                    getValue()
                 }
             } else {
                 toast.error("Please Wallet Connect First!");
@@ -90,13 +96,20 @@ export default function Stack() {
         try {
             const stakingCOntract = satkingIntegrateContract();
             if (walletAddress) {
-                setUnlockLoading(true);
+                if(totalStaked > 0){
+                    setUnlockLoading(true);
                 const unlockTokens = await stakingCOntract.methods
                     .unlockTokens()
                     .send({ from: walletAddress });
                 if (unlockTokens) {
                     toast.success("Tokens Unlocked Successfully!");
+                    setRedeemDisable(false)
+                    getValue();
                 }
+                } else{
+                    toast.error("You must stake tokens before unlocking them!");
+                }
+                
             } else {
                 toast.error("Please Wallet Connect First!");
             }
@@ -232,18 +245,35 @@ export default function Stack() {
                         className="w-full mb-4 p-3 rounded-lg bg-gray-700 text-white"
                         disabled
                     /> */}
+                    <label className="text-white font-medium">Enter Amount</label>
                     <input
                         type="number"
                         placeholder="0"
-                        className="w-full mb-4 p-3 rounded-lg bg-gray-700 text-white"
+                        className="w-full mb-1 p-3 rounded-lg bg-gray-700 text-white"
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
                     />
                     {stakingError && !value && (
                         <span className="error-message">
-                            Please Enter Value
+                            Please Enter Amount
                         </span>
                     )}
+                    <div>
+                    <label className="text-white font-medium mt-3">Enter Lock Duration</label>
+                    <input
+                        type="date"
+                        placeholder="0"
+                        className="w-full mb-1 p-3 rounded-lg bg-gray-700 text-white"
+                        value={lockDuration}
+                        onChange={(e) => setLockDuration(e.target.value)}
+                    />
+                    {stakingError && !lockDuration && (
+                        <span className="error-message">
+                            Please Enter Lock Duration
+                        </span>
+                    )}  
+                    </div>
+                    
                     <div className="flex flex-col md:flex-row gap-5 justify-center mt-4">
                         <button
                             className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
@@ -254,18 +284,19 @@ export default function Stack() {
                         </button>
                         <button
                             className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
-                            onClick={handleRedeemTokens}
-                            disabled={redeemLoading}
-                        >
-                            {redeemLoading ? "Loading..." : "Redeem Tokens"}
-                        </button>
-                        <button
-                            className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
                             onClick={handleUnlockTokens}
                             disabled={unlockLoading}
                         >
                             {unlockLoading ? "Loading..." : "Unlock Tokens"}
                         </button>
+                        <button
+                            className={redeemLoading ? "bg-red2 text-white font-bold px-20 py-2 rounded-lg shadow-md" : "bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"}
+                            onClick={handleRedeemTokens}
+                            disabled={redeemLoading}
+                        >
+                            {redeemLoading ? "Loading..." : "Redeem Tokens"}
+                        </button>
+                        
                     </div>
                 </div>
             </div>
