@@ -1,4 +1,4 @@
-export const tokenAddress = "0x6042f5296788775F704ea4913fdE78941E3D678A";
+export const tokenAddress = "0xe67405aa2894959a389e1fD914DFF6aDFA33347B";
 export const tokenAbi = [
     {
         inputs: [
@@ -180,11 +180,28 @@ export const tokenAbi = [
         type: "function",
     },
     {
+        inputs: [],
+        name: "extContract",
+        outputs: [{ internalType: "address", name: "", type: "address" }],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
         inputs: [
             { internalType: "address", name: "to", type: "address" },
             { internalType: "uint256", name: "amount", type: "uint256" },
         ],
-        name: "mint",
+        name: "mintByContract",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            { internalType: "address", name: "to", type: "address" },
+            { internalType: "uint256", name: "amount", type: "uint256" },
+        ],
+        name: "mintByOwner",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",
@@ -206,6 +223,15 @@ export const tokenAbi = [
     {
         inputs: [],
         name: "renounceOwnership",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            { internalType: "address", name: "_contract", type: "address" },
+        ],
+        name: "setContract",
         outputs: [],
         stateMutability: "nonpayable",
         type: "function",

@@ -1,4 +1,4 @@
-export const presaleAddress = "0x8F11E5b7f1319054fB7D951F5f1FB9A7F752F1EC";
+export const presaleAddress = "0x89aFA063d2BE97DbEeFBEE35E2c35A45680dd408";
 export const presaleAbi = [
     {
         inputs: [

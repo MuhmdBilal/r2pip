@@ -1,4 +1,4 @@
-export const stakingAddress = "0x1E8A96A2bA830A79B8CB055C0A6389e8A6349e1A";
+export const stakingAddress = "0xCa73dcDc3AE9B88fbB963afCd6f0Cca4c486182B";
 export const stakingAbi = [
     {
         inputs: [
@@ -190,6 +190,20 @@ export const stakingAbi = [
         type: "function",
     },
     {
+        inputs: [],
+        name: "getGovernanceProposalsCount",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [{ internalType: "address", name: "staker", type: "address" }],
+        name: "getRemainingStakeTime",
+        outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
         inputs: [{ internalType: "address", name: "staker", type: "address" }],
         name: "getStakes",
         outputs: [
@@ -221,6 +235,13 @@ export const stakingAbi = [
     },
     {
         inputs: [{ internalType: "address", name: "staker", type: "address" }],
+        name: "getStakingHistoryCount",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [{ internalType: "address", name: "staker", type: "address" }],
         name: "getTotalStaked",
         outputs: [
             { internalType: "uint256", name: "totalStaked", type: "uint256" },
@@ -229,9 +250,11 @@ export const stakingAbi = [
         type: "function",
     },
     {
-        inputs: [{ internalType: "address", name: "user", type: "address" }],
-        name: "getUserProposalIDs",
-        outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
+        inputs: [{ internalType: "address", name: "staker", type: "address" }],
+        name: "getUserRewards",
+        outputs: [
+            { internalType: "uint256", name: "rewards", type: "uint256" },
+        ],
         stateMutability: "view",
         type: "function",
     },
@@ -246,6 +269,13 @@ export const stakingAbi = [
             { internalType: "bool", name: "executed", type: "bool" },
             { internalType: "address", name: "proposer", type: "address" },
         ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [{ internalType: "address", name: "", type: "address" }],
+        name: "hasUnlockedTokens",
+        outputs: [{ internalType: "bool", name: "", type: "bool" }],
         stateMutability: "view",
         type: "function",
     },

@@ -23,7 +23,7 @@ const VoteTable = () => {
     const [price,setPrice] = useState('')
     const [priceError,setPriceError] = useState(false);
     const [priceLoading,setPriceLoading] = useState(false);
-    const [proposalId,setProposalId] = useState('')
+    const [proposalId,setProposalId] = useState(null)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setValue((prevState) => ({
@@ -44,7 +44,10 @@ const VoteTable = () => {
     };
     // Function to open the modal
 const handlePriceModal = async(proposalId)=>{
-    console.log("proposalId", proposalId);
+    if(proposalId.proposerAddress === walletAddress) {
+        toast.error("You cannot vote for your own proposal!");
+        return;
+    }
     setProposalId(proposalId)
     setPriceModal(true)
 }
@@ -105,11 +108,12 @@ const handleClosePriceModal = () => {
                 setIsLoading(true);
                 const stakingCOntract = satkingIntegrateContract();
                 const getUserProposalIDs = await stakingCOntract.methods
-                    .getUserProposalIDs(walletAddress)
+                    .getGovernanceProposalsCount()
                     .call();
-                for (const proposalsId of getUserProposalIDs) {
-                    const proposalDetails = await stakingCOntract.methods
-                        .governanceProposals(Number(proposalsId))
+                    
+                    for (let proposalsId=0; proposalsId<Number(getUserProposalIDs); proposalsId++){
+                        const proposalDetails = await stakingCOntract.methods
+                        .governanceProposals(proposalsId)
                         .call();
                     let object = {
                         title: proposalDetails?.title,
@@ -121,7 +125,10 @@ const handleClosePriceModal = () => {
                         endTime: Number(proposalDetails?.endTime)
                     };
                     array.push(object);
-                }
+                    }
+                // for (const proposalsId of getUserProposalIDs) {
+               
+                // }
                 setProposalsDetails(array);
             }
         } catch (e) {
@@ -168,10 +175,11 @@ const handleClosePriceModal = () => {
           await tokenContract.methods
           .approve(stakingAddress, weiValue)
           .send({ from: walletAddress });
-          const vote  = await stakingContract.methods.vote(proposalId,weiValue).send({ from: walletAddress });
+          const vote  = await stakingContract.methods.vote(proposalId?.proposalsId,weiValue).send({ from: walletAddress });
           if(vote){
             toast.success("Vote Successfully")
             handleClosePriceModal()
+            getProposal();
           }
         }catch(e){
             console.log("e", e);
@@ -286,7 +294,7 @@ const handleClosePriceModal = () => {
                                                                         loadingProposalId !==
                                                                         null
                                                                     }
-                                                                    onClick={()=>handlePriceModal(resume.proposalsId)}
+                                                                    onClick={()=>handlePriceModal(resume)}
                                                                 >
                                                                     Vote
                                                                 </button>

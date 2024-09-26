@@ -99,9 +99,10 @@ export default function Presale() {
                 setLoading(true)
                 const weiValue = web3.utils.toWei(value, "ether");
                 if (name === "bnb") {
+                    const calculateBNBCost = web3.utils.toWei(calculateValue, "ether")
                     const buyTokensWithBNB = await presaleContract.methods
                         .buyTokensWithBNB()
-                        .send({ from: walletAddress, value: weiValue });
+                        .send({ from: walletAddress, value: calculateBNBCost });
                         if(buyTokensWithBNB){
                             setValue("")
                             setName("bnb")
