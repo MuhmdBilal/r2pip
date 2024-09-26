@@ -276,21 +276,21 @@ export default function Stack() {
                     
                     <div className="flex flex-col md:flex-row gap-5 justify-center mt-4">
                         <button
-                            className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
+                            className="bg-red1 text-white font-bold px-10 md:px-20  py-2 rounded-lg shadow-md"
                             onClick={handleStaking}
                             disabled={registerLoading}
                         >
                             {stakingLoading ? "Loading..." : "Staking"}
                         </button>
                         <button
-                            className="bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"
+                            className="bg-red1 text-white text-nowrap font-bold px-10 md:px-20  py-2 rounded-lg shadow-md"
                             onClick={handleUnlockTokens}
                             disabled={unlockLoading}
                         >
                             {unlockLoading ? "Loading..." : "Unlock Tokens"}
                         </button>
                         <button
-                            className={redeemLoading ? "bg-red2 text-white font-bold px-20 py-2 rounded-lg shadow-md" : "bg-red1 text-white font-bold px-20 py-2 rounded-lg shadow-md"}
+                            className={redeemLoading ? "bg-red2 text-white text-nowrap font-bold px-10 md:px-20 py-2 rounded-lg shadow-md" : "bg-red1 text-white font-bold px-10 md:px-20 text-nowrap py-2 rounded-lg shadow-md"}
                             onClick={handleRedeemTokens}
                             disabled={redeemLoading}
                         >

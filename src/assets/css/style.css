@@ -38,8 +38,7 @@ html{
 
 
 .header-mob {
-  transform: scale(1);
-  transition: transform 0.7s;
+
   position: relative;
   text-decoration: none;
 }
@@ -47,8 +46,7 @@ html{
 .header-mob:hover {
   cursor: pointer;
   color: #c21b0c !important;
-  transform: scale(1.1);
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .header-mob::after {
@@ -59,7 +57,6 @@ html{
   width: 0;
   height: 2px;
   background-color: #c21b0c;
-  transition: width 0.4s;
 }
 
 .header-mob:hover::after {

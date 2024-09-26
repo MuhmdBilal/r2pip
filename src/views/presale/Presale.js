@@ -155,7 +155,7 @@ export default function Presale() {
         getBalance();
     },[walletAddress])
     return (
-        <div className="w-4/12 mx-auto p-6 h-full bg-black rounded-lg shadow-lg text-white">
+        <div className="w-full max-w-md mx-auto p-6 h-full bg-black rounded-lg shadow-lg text-white">
             {/* Stage and Price Info */}
             <div className="text-center mb-4">
                 <h1 className="flex justify-center items-center text-[30px] md:text-[40px] lg:text-[50px] w-full font-extrabold text-red1 mb-2 md:mb-5">

@@ -17,10 +17,10 @@ function Navbar() {
   };
   useEffect(() => {
     if (isConnected && address) {
-        setWalletAddress(address);
+      setWalletAddress(address);
     }
-  
-}, [isConnected, address]);
+
+  }, [isConnected, address]);
 
   return (
     <nav className="flex justify-between items-center py-2 bg-black fixed top-0 left-0 w-full z-50 sm:px-2 md:px-8 lg:px-12">
@@ -34,7 +34,7 @@ function Navbar() {
           <p className='text-base'>Rise2Prosperity Incentive Program</p>
         </Link>
       </div>
-      <div className='hidden lg:flex justify-between items-center gap-x-3'>
+      <div className='hidden lg:flex justify-between items-center gap-x-2'>
         <Link to="/" className="header">
           <p className="text-white">Home</p>
         </Link>
@@ -53,7 +53,7 @@ function Navbar() {
             onClick={() => {
               history.push("/#whitepaper");
             }}>
-           Whitepaper
+            Whitepaper
           </p>
         </a>
         <a href="#tokenomics" className="header">
@@ -83,7 +83,7 @@ function Navbar() {
         <Link to="/contact" className="header">
           <p className="text-white">Contact</p>
         </Link>
-       
+
         <w3m-button />
         {/* <button className='text-white bg-red1 px-3 py-2 rounded-full'>Connect Wallet</button> */}
       </div>
@@ -107,46 +107,58 @@ function Navbar() {
           <Link to="/" onClick={Menu} className="header-mob">
             <p className="text-[16px] mt-3 my-3">Home</p>
           </Link>
-          <a href="#roadmap" className='header'>
+          <a
+            href="#roadmap"
+            className='header-mob'
+            onClick={Menu}>
 
-            <p className="text-[16px] text-white"
+            <p className="text-[16px] text-white header-mob"
               onClick={() => {
                 history.push("/#roadmap");
               }}>
               Roadmap
             </p>
           </a>
-          <Link to="/" onClick={Menu} className="header-mob">
-            <p className="text-[16px] mt-3 my-3 no-underline">Whitepaper</p>
+          <a
+            href="#whitepaper"
+            className='header-mob'
+            onClick={Menu}>
+            <p
+              onClick={() => {
+                history.push("/#whitepaper");
+              }} className="text-[16px] mt-3 my-3 no-underline">Whitepaper</p>
+          </a>
+          <a
+            href="#tokenomics"
+            className='header-mob'
+            onClick={Menu}>
+            <p className="text-white header-mob"
+              onClick={() => {
+                history.push("/#tokenomics");
+              }}
+            >
+              Tokenomics
+            </p>
+          </a>
+          <Link to="/stake" onClick={Menu} className="header-mob">
+            <p className="text-[16px] mt-3 my-3 no-underline">Staking</p>
           </Link>
-          <a href="#tokenomics" className="header">
-          <p className="text-white"
-            onClick={() => {
-              history.push("/#tokenomics");
-            }}
-          >
-            Tokenomics
-          </p>
-        </a>
-        <Link to="/stake" className="header">
-          <p className="text-white">Staking</p>
-        </Link>
-        <Link to="/presale" className="header">
-          <p className="text-white">Presale</p>
-        </Link>
-        <Link to="/swap" className="header">
-          <p className="text-white">Swap</p>
-        </Link>
-        <Link to="/vote" className="header">
-          <p className="text-white">Vote</p>
-        </Link>
+          <Link to="/presale" onClick={Menu} className="header-mob">
+            <p className="text-[16px] mt-3 my-3 no-underline">Presale</p>
+          </Link>
+          <Link to="/swap" onClick={Menu} className="header-mob">
+            <p className="text-[16px] mt-3 my-3 no-underline">Swap</p>
+          </Link>
+          <Link to="/vote" onClick={Menu} className="header-mob">
+            <p className="text-[16px] mt-3 my-3 no-underline">Vote</p>
+          </Link>
           <Link to="/about" onClick={Menu} className="header-mob">
             <p className="text-[16px] mt-3 my-3 no-underline">About Us</p>
           </Link>
           <Link to="/contact" onClick={Menu} className="header-mob">
             <p className="text-[16px] mt-3 my-3 no-underline">Contact</p>
           </Link>
-         
+
           <w3m-button />
         </nav>
 

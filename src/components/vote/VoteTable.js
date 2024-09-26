@@ -184,12 +184,12 @@ const handleClosePriceModal = () => {
     }, [walletAddress]);
     return (
         <div className="mt-12 max-w-[1580px] px-4 mx-auto">
-            <div className="flex justify-between">
-                <h6 className="text-[30px] md:text-[40px] lg:text-[30px] w-full font-extrabold text-white mb-2 md:mb-5">
+            <div className="flex justify-between items-center">
+                <h6 className="text-[20px] md:text-[40px] lg:text-[30px] w-full font-extrabold text-white mb-2 md:mb-5">
                     Proposal Details
                 </h6>
                 <button
-                    className="bg-red1 text-white font-bold py-2 px-4 rounded-lg"
+                    className="bg-red1 text-white font-bold py-2 px-2 md:px-4 rounded-lg"
                     onClick={handleVoteClick}
                 >
                     Proposal
