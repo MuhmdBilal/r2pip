@@ -24,8 +24,8 @@ export default function VoteModal({
                 </button> */}
 
                 {/* Modal Content */}
-                <h2 className="text-xl font-bold mb-4 text-center">
-                    Vote Modal
+                <h2 className="text-xl font-bold mb-4 text-center text-black">
+                    Proposal
                 </h2>
 
                 {/* Title Input */}

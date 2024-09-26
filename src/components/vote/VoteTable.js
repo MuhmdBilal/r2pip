@@ -5,6 +5,7 @@ import { stakingAbi, stakingAddress } from "../../contract/stakingContract";
 import { AuthUserContext } from "../../conext";
 import { toast } from "react-toastify";
 import { tokenAbi, tokenAddress } from "../../contract/tokenContract";
+import PriceModal from "./PriceModal";
 const VoteTable = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const web3 = new Web3(window.ethereum);
@@ -18,6 +19,11 @@ const VoteTable = () => {
     });
     const [error, setError] = useState(false);
     const [voteLoading, setVoteLoading] = useState(false);
+    const [priceModal,setPriceModal] = useState(false);
+    const [price,setPrice] = useState('')
+    const [priceError,setPriceError] = useState(false);
+    const [priceLoading,setPriceLoading] = useState(false);
+    const [proposalId,setProposalId] = useState('')
     const handleChange = (e) => {
         const { name, value } = e.target;
         setValue((prevState) => ({
@@ -32,10 +38,28 @@ const VoteTable = () => {
         );
         return staking_Contract;
     };
+    const tokenIntegrateContract = () => {
+        const token_Contract = new web3.eth.Contract(tokenAbi, tokenAddress);
+        return token_Contract;
+    };
     // Function to open the modal
+const handlePriceModal = async(proposalId)=>{
+    console.log("proposalId", proposalId);
+    setProposalId(proposalId)
+    setPriceModal(true)
+}
+const handleClosePriceModal = () => {
+    setPriceModal(false);
+    setPriceError(false);
+    setPrice('')
+    setPriceLoading(false);
+};
     const handleVoteClick = () => {
         setIsModalOpen(true);
     };
+    const handlePriceCHange = (e)=>{
+        setPrice(e.target.value)
+    }
     // Function to close the modal
     const handleCloseModal = () => {
         setIsModalOpen(false);
@@ -109,7 +133,6 @@ const VoteTable = () => {
 
     const handleExecute = async (proposal) => {
         try {
-          console.log("proposal", proposal);
           const currentTime = Math.floor(Date.now() / 1000);
           if (currentTime < proposal?.endTime) {
             toast.error("You cannot execute the proposal before the specified time!");
@@ -132,6 +155,30 @@ const VoteTable = () => {
             setLoadingProposalId(null);
         }
     };
+    const handleVote = async()=>{
+        try{
+          if(!price){
+            setPriceError(true)
+            return;
+          }
+          const stakingContract = satkingIntegrateContract();
+          const tokenContract = tokenIntegrateContract()
+          const weiValue = web3.utils.toWei(price, "ether");
+          setPriceLoading(true)
+          await tokenContract.methods
+          .approve(stakingAddress, weiValue)
+          .send({ from: walletAddress });
+          const vote  = await stakingContract.methods.vote(proposalId,weiValue).send({ from: walletAddress });
+          if(vote){
+            toast.success("Vote Successfully")
+            handleClosePriceModal()
+          }
+        }catch(e){
+            console.log("e", e);
+        }finally{
+            setPriceLoading(false);
+        }
+    }
     useEffect(() => {
         getProposal();
     }, [walletAddress]);
@@ -233,15 +280,16 @@ const VoteTable = () => {
                                                                 }
                                                             </td>
                                                             <td className="px-4 py-2 flex gap-x-4 justify-start">
-                                                                {/* <button
+                                                                <button
                                                                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
                                                                     disabled={
                                                                         loadingProposalId !==
                                                                         null
                                                                     }
+                                                                    onClick={()=>handlePriceModal(resume.proposalsId)}
                                                                 >
                                                                     Vote
-                                                                </button> */}
+                                                                </button>
                                                                 <button
                                                                     className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full ${
                                                                         loadingProposalId ===
@@ -310,6 +358,15 @@ const VoteTable = () => {
                 voteLoading={voteLoading}
                 handleChange={handleChange}
                 handleProposal={handleProposal}
+            />
+            <PriceModal 
+             isOpen={priceModal}
+             onClose={handleClosePriceModal}
+             value={price}
+             error={priceError}
+             voteLoading={priceLoading}
+             handleChange={handlePriceCHange}
+             handleProposal={handleVote}
             />
         </div>
     );
