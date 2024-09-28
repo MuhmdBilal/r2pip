@@ -52,8 +52,11 @@ export default function Stack() {
         const lockTime = new Date(lockDuration);
         const lockDurationInSeconds = Math.floor((lockTime.getTime() - currentTime.getTime()) / 1000);
             const weiValue = web3.utils.toWei(value, "ether");
+            console.log("weiValue", weiValue, lockDurationInSeconds);
+            
             if (walletAddress) {
-                setStakingLoading(true);
+                if(lockDurationInSeconds > 0){
+                    setStakingLoading(true);
                 await tokenContract.methods
                     .approve(stakingAddress, weiValue)
                     .send({ from: walletAddress });
@@ -66,6 +69,10 @@ export default function Stack() {
                     setStakingError(false);
                     getValue()
                 }
+                } else{
+                    toast.error("Invalid lock duration. Please select a future date.");
+                }
+                
             } else {
                 toast.error("Please Wallet Connect First!");
             }

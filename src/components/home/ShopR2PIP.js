@@ -10,7 +10,7 @@ export default function ShopR2PIP() {
             heading: "Purchase GUAPCoin",
             desc: "Purchase R2PIP Token",
 
-            link: "/purchase"
+            link: "/presale"
         },
         {
             logo: R2PIP,
@@ -36,7 +36,7 @@ export default function ShopR2PIP() {
                 <Link
                     to={item.link}
                     key={index}
-                    // style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none' }}
                     className='w-full'>
                     <div className='p-4 rounded-lg shadow-lg flex flex-col items-center text-center justify-center w-full mx-auto'>
                         <img src={item.logo} alt={item.heading} className='h-28 w-28 rounded-full mx-auto mb-4' />

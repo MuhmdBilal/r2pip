@@ -1,4 +1,4 @@
-export const stakingAddress = "0xCa73dcDc3AE9B88fbB963afCd6f0Cca4c486182B";
+export const stakingAddress = "0x217DbCaFDf3a41B04956fd2ba3ABe5CF7EFB2493";
 export const stakingAbi = [
     {
         inputs: [
@@ -77,6 +77,12 @@ export const stakingAbi = [
                 indexed: false,
                 internalType: "uint256",
                 name: "amount",
+                type: "uint256",
+            },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "reward",
                 type: "uint256",
             },
         ],

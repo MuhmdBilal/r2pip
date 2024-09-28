@@ -38,7 +38,7 @@ function Navbar() {
         <Link to="/" className="header">
           <p className="text-white">Home</p>
         </Link>
-        <a href="#road-map" className='header'>
+        {/* <a href="#road-map" className='header'>
 
           <p className="text-[16px] text-white"
             onClick={() => {
@@ -46,7 +46,7 @@ function Navbar() {
             }}>
             Roadmap
           </p>
-        </a>
+        </a> */}
         <a href="#whitepaper" className='header'>
 
           <p className="text-[16px] text-white"
@@ -56,7 +56,7 @@ function Navbar() {
             Whitepaper
           </p>
         </a>
-        <a href="#tokenomics" className="header">
+        {/* <a href="#tokenomics" className="header">
           <p className="text-white"
             onClick={() => {
               history.push("/#tokenomics");
@@ -64,7 +64,7 @@ function Navbar() {
           >
             Tokenomics
           </p>
-        </a>
+        </a> */}
         <Link to="/stake" className="header">
           <p className="text-white">Staking</p>
         </Link>

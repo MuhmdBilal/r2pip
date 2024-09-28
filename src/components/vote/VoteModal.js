@@ -15,20 +15,9 @@ export default function VoteModal({
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white w-full max-w-lg p-3 rounded-lg shadow-lg relative">
-                {/* Cross icon to close the modal */}
-                {/* <button
-                    className="absolute top-2 right-3 text-gray-500 hover:text-gray-700"
-                    onClick={onClose}
-                >
-                    <IoMdClose size={30} />
-                </button> */}
-
-                {/* Modal Content */}
                 <h2 className="text-xl font-bold mb-4 text-center text-black">
                     Proposal
                 </h2>
-
-                {/* Title Input */}
                 <label className="text-black">Title</label>
                 <input
                     type="text"
@@ -77,7 +66,7 @@ export default function VoteModal({
                         disabled={voteLoading}
                         onClick={handleProposal}
                     >
-                        {voteLoading ? "Loading..." : "Vote"}
+                        {voteLoading ? "Loading..." : "Create Proposal"}
                     </button>
                 </div>
             </div>
