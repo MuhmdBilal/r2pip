@@ -6,9 +6,10 @@ export default function Mission() {
       <div className="w-[95%] md:w-[50%]">
         <h1 className="text-4xl font-bold text-red1">Mission</h1>
         <p className="text-lg mt-4">
-          Ensure the right selection of solutions, and ensure the right procedure
-          of application as part of a customer-focused approach and quest for
-          impeccable quality.
+          {`R2PIP’s mission is to create a decentralized and transparent platform that offers financial rewards to
+          users for participating in various activities within the ecosystem. The goal is to empower users with
+          opportunities for growth and prosperity by offering staking rewards, incentivized tasks, and a
+          loyalty program that benefits both early adopters and long-term participants.`}
         </p>
       </div>
       {/* Line with dot */}

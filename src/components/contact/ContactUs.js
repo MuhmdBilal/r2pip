@@ -66,7 +66,7 @@ function ContactUs() {
                 </div>
                 <div>
                 <h6 className="text-[30px] md:text-[50px] w-full md:w-[550px] font-extrabold text-red1 mb-2 md:mb-5">
-                        Contact with me
+                        Contact Us
                     </h6>
                     <div className="max-w-3xl text-white rounded-lg border border-[#464c6a] p-3 lg:p-5">
                         <p className="text-sm text-[#d3d8e8]">

@@ -34,7 +34,7 @@ function Navbar() {
           <p className='text-base'>Rise2Prosperity Incentive Program</p>
         </Link>
       </div>
-      <div className='hidden lg:flex justify-between items-center gap-x-2'>
+      <div className='hidden lg:flex justify-between items-center gap-x-3'>
         <Link to="/" className="header">
           <p className="text-white">Home</p>
         </Link>
@@ -53,7 +53,7 @@ function Navbar() {
             onClick={() => {
               history.push("/#whitepaper");
             }}>
-            Whitepaper
+            Lite Paper
           </p>
         </a>
         {/* <a href="#tokenomics" className="header">
@@ -81,7 +81,7 @@ function Navbar() {
           <p className="text-white">About Us</p>
         </Link>
         <Link to="/contact" className="header">
-          <p className="text-white">Contact</p>
+          <p className="text-white">Contact Us</p>
         </Link>
 
         <w3m-button />
@@ -126,7 +126,7 @@ function Navbar() {
             <p
               onClick={() => {
                 history.push("/#whitepaper");
-              }} className="text-[16px] mt-3 my-3 no-underline">Whitepaper</p>
+              }} className="text-[16px] mt-3 my-3 no-underline">Lite Paper</p>
           </a>
           <a
             href="#tokenomics"

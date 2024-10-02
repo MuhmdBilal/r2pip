@@ -210,7 +210,7 @@ export default function Stack() {
 
     return (
         <div className="flex flex-col mt-14 items-center w-full justify-center h-full">
-            <h6 className="flex justify-center items-center text-[30px] md:text-[40px] lg:text-[50px] w-full font-extrabold text-red1 mb-2 md:mb-5">
+            <h6 className="flex justify-center items-center text-[30px] md:text-[40px] lg:text-[40px] w-full font-extrabold text-red1 mb-2 md:mb-5">
                 Shop With R2PIP
             </h6>
             <div className="flex flex-col md:flex-row justify-between gap-12 w-full  rounded-lg my-8 w-9/12">

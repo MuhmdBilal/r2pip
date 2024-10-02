@@ -14,7 +14,7 @@ export default function ShopR2PIP() {
         },
         {
             logo: R2PIP,
-            heading: "Swap R2PIP for GUAP",
+            heading: "Balances for GUAP",
             desc: "Swap R2PIP For GUAP",
             link: "/swap",
         },

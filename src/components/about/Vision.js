@@ -14,9 +14,10 @@ export default function Mission() {
             <div className="w-[95%] md:w-[50%] flex flex-col">
                 <h1 className="text-4xl font-bold text-red-500 flex justify-end">Vision</h1>
                 <p className="text-lg mt-4 text-right">
-                    Ensure the right selection of solutions, and ensure the right procedure
-                    of application as part of a customer-focused approach and quest for
-                    impeccable quality.
+                   {`To create a thriving, empowered community where individuals, businesses, and organizations rise together 
+in faith and prosperity. By fostering meaningful partnerships, providing innovative incentives, and 
+promoting financial literacy, R2PIP envisions a future where every participant can achieve sustainable 
+success, uplift their community, and inspire a ripple effect of positive change for generations to come.`}
                 </p>
             </div>
         </div>

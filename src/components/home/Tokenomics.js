@@ -1,5 +1,5 @@
 import React from 'react'
-import img from "../../assets/img/TokenomicsSV.svg";
+import img from "../../assets/img/TokenPie.svg";
 
 export default function Tokenomics() {
     return (
@@ -19,8 +19,8 @@ export default function Tokenomics() {
                     <p className='flex gap-1 text-gray-300 text-3xl font-bold text-center md:text-start'> <span className='text-red1'>$</span> R2PIP</p>
                     <h2 className='font-bold flex gap-1 text-gray-300 text-2xl md:text-4xl py-5 px-1'>Total Supply <sapan className="text-red1 ml-2">25,000,000</sapan></h2>
 
-                    <p className='text-gray-300 text-xl'> <span className='font-bold text-xl text-red1'>Buy Fee: 4%</span> {`(3% Reward to holders, 1% Marketing)`}</p>
-                    <p className='text-gray-300 text-xl'> <span className='font-bold text-xl text-green-400'>Sell Fee: 5%</span> {`(3% Reward, 1% buyback, 1% Marketing)`}</p>
+                    <p className='text-gray-300 text-xl'> <span className='font-bold text-xl text-red1'> Buyers Fee:4%</span> {`(2% Reward to holders, 1% Marketing, 1% Dev)`}</p>
+                    <p className='text-gray-300 text-xl'> <span className='font-bold text-xl text-green-400'> Sellers Fee: 5%</span> {`(2% to holders, 1% Marketing, 1% Dev, 1% Buy Back)`}</p>
 
                 </div>
 

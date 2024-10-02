@@ -45,10 +45,10 @@ export default function Testimonials() {
         <div className=' text-white rounded-t-3xl bottom-5 relative py-20  px-3 flex items-center justify-center flex-col w-full mt-12'>
             <h6 className='text-[26px] text-red1 pb-5 sm:text-[32px] md:text-[40px] font-bold'>TESTIMONIALS</h6>
             <div className='section-line'></div>
-            <p className='text-[16px] md:text-[20px] w-[97%] sm:w-[90%] md:w-[65%] lg:w-[55%] xl:w-[47%] text-center text-white'>
+            <p className='text-[16px] md:text-[20px] mb-3 w-[97%] sm:w-[90%] md:w-[65%] lg:w-[55%] xl:w-[47%] text-center text-white'>
                 What Participants Are Saying
             </p>
-            <Container fluid className="client w-full h-[324px] md:h-[420px] lg:h-[500px] xl:h-[570px] flex justify-center items-center ">
+            <Container fluid className="client w-full h-[324px] md:h-[420px] lg:h-[500px] xl:h-screen flex justify-center items-center ">
 
                 <Swiper
                     cssMode={true}
@@ -63,7 +63,7 @@ export default function Testimonials() {
                 >
                     {testimonialsData.map((testimonial) => (
                         <SwiperSlide key={testimonial.id} className="swiperSlide">
-                            <div className="flex items-center justify-center py-3 lg:mt-5 lg:py-5">
+                            <div className="flex items-center border-red1 border-4 justify-center rounded-full lg:mt-5">
                                 <img
                                     src={testimonial.imgSrc}
                                     alt=" "

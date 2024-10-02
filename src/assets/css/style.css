@@ -91,10 +91,11 @@ html{
 /* Testimonials */
 
 .client {
-  background-image: url('/src/assets/img/testimonials_bg.png');
+  background-image: url('/src/assets/img/PeopleofColor.svg');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
+  width: full;
 }
 
 .client-Swiper {

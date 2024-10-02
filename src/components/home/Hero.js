@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import img from "../../assets/img/3.svg";
 
 const Hero = () => {
@@ -13,10 +14,12 @@ const Hero = () => {
                     Join the Rise2Prosperity Incentive Program and unlock rewards for your
                     growth, contribution, and commitment.
                 </p>
+                <Link to="/presale">
                 <div className="text-sm md:text-base flex flex-col gap-y-1 py-3 md:py-6">
                     <button className='text-white bg-red1 px-3 py-2 rounded-lg w-1/2'>Get Started</button>
 
                 </div>
+                </Link>
             </div>
 
             {/* Image section */}
