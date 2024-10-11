@@ -66,15 +66,12 @@ export default function Presale() {
                     const calculateBNBCost = await presaleContract.methods
                         .calculateBNBCost(weiValue)
                         .call();
-                        console.log("calculateBNBCost", calculateBNBCost);
                     const calculateValue = Number(calculateBNBCost) / 1e18;
                     setCalculateValue(calculateValue);
                 } else {
                     const calculateUSDTCost = await presaleContract.methods
                         .calculateUSDTCost(weiValue)
                         .call();
-                        console.log("calculateUSDTCost", calculateUSDTCost);
-                        
                     const calculateValue = Number(calculateUSDTCost) / 1e18;
                     setCalculateValue(calculateValue);
                 }
@@ -106,7 +103,7 @@ export default function Presale() {
                         if(buyTokensWithBNB){
                             setValue("")
                             setName("bnb")
-                            toast.success("BNB purchased successfully.");
+                            toast.success("GUAP purchased successfully.");
                         }
                 } else{
                     const approve = await usdtContract.methods.approve(presaleAddress,weiValue).send({from:walletAddress});
@@ -201,7 +198,7 @@ export default function Presale() {
                     </p>
                     <p>
                         1 R2PIP ={" "}
-                        <span className="font-bold">{bnbBalance} BNB</span>
+                        <span className="font-bold">{bnbBalance} GUAP</span>
                     </p>
                 </div>
 
@@ -215,7 +212,7 @@ export default function Presale() {
                         }
                         onClick={() => setName("bnb")}
                     >
-                        BNB
+                        GUAP
                     </button>
                     <button
                         className={
@@ -264,7 +261,7 @@ export default function Presale() {
                             readOnly
                         />
                         <p className="text-center mt-2 text-gray-500">
-                        Amount in BNB/USDT
+                        Amount in GUAP/USDT
                         </p>
                     </div>
                 </div>

@@ -1,18 +1,12 @@
-// /** @type {import('tailwindcss').Config} */
 // module.exports = {
 //   content: [
-//     "./src/**/*.{js,jsx,ts,tsx}",
+//     './src/**/*.{js,jsx,ts,tsx}', // Ensure the paths are correct.
 //   ],
 //   theme: {
-//     extend: {
-//       colors:{
-//         red1: "#c21b0c",
-//       }
-//     },
+//     extend: {},
 //   },
 //   plugins: [],
-// }
-
+// };
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [

@@ -4,23 +4,24 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/output.png";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { useAccount, useDisconnect } from 'wagmi';
+// import { useAccount, useDisconnect } from 'wagmi';
 import { AuthUserContext } from '../../conext';
+import WalletConnection from '../../walletConnection';
 
 function Navbar() {
   const [toggle, setToggle] = useState(false);
   const history = useHistory();
   const { setWalletAddress } = useContext(AuthUserContext);
-  const { address, isConnected } = useAccount();
+  // const { address, isConnected } = useAccount();
   const Menu = () => {
     setToggle(!toggle);
   };
-  useEffect(() => {
-    if (isConnected && address) {
-      setWalletAddress(address);
-    }
+  // useEffect(() => {
+  //   if (isConnected && address) {
+  //     setWalletAddress(address);
+  //   }
 
-  }, [isConnected, address]);
+  // }, [isConnected, address]);
 
   return (
     <nav className="flex justify-between items-center py-2 bg-black fixed top-0 left-0 w-full z-50 sm:px-2 md:px-8 lg:px-12">
@@ -83,8 +84,8 @@ function Navbar() {
         <Link to="/contact" className="header">
           <p className="text-white">Contact Us</p>
         </Link>
-
-        <w3m-button />
+        <WalletConnection/>
+        {/* <w3m-button /> */}
         {/* <button className='text-white bg-red1 px-3 py-2 rounded-full'>Connect Wallet</button> */}
       </div>
 
@@ -159,7 +160,7 @@ function Navbar() {
             <p className="text-[16px] mt-3 my-3 no-underline">Contact</p>
           </Link>
 
-          <w3m-button />
+          <WalletConnection/>
         </nav>
 
       </div>

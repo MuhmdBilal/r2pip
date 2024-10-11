@@ -10,7 +10,7 @@ export default function ShopR2PIP() {
             heading: "Purchase GUAPCoin",
             desc: "Purchase R2PIP Token",
 
-            link: "/presale"
+            link: "/"
         },
         {
             logo: R2PIP,
