@@ -1,4 +1,4 @@
-export const presaleAddress = "0xB63dbD1A286717B0DC18EF616A445Fb771D2Dd22";
+export const presaleAddress = "0xc70258AD2e84b460E2BEA6d1a8076a415D85897A";
 export const presaleAbi = [
     {
         type: "constructor",
@@ -71,6 +71,31 @@ export const presaleAbi = [
                 name: "newRate",
                 internalType: "uint256",
                 indexed: false,
+            },
+        ],
+        anonymous: false,
+    },
+    {
+        type: "event",
+        name: "RescueTokens",
+        inputs: [
+            {
+                type: "address",
+                name: "token",
+                internalType: "address",
+                indexed: true,
+            },
+            {
+                type: "uint256",
+                name: "amount",
+                internalType: "uint256",
+                indexed: false,
+            },
+            {
+                type: "address",
+                name: "to",
+                internalType: "address",
+                indexed: true,
             },
         ],
         anonymous: false,
@@ -204,6 +229,28 @@ export const presaleAbi = [
     {
         type: "function",
         stateMutability: "view",
+        outputs: [
+            { type: "uint256", name: "bnbCost", internalType: "uint256" },
+        ],
+        name: "calculateBNBCost",
+        inputs: [
+            { type: "uint256", name: "tokenAmount", internalType: "uint256" },
+        ],
+    },
+    {
+        type: "function",
+        stateMutability: "view",
+        outputs: [
+            { type: "uint256", name: "usdtCost", internalType: "uint256" },
+        ],
+        name: "calculateUSDTCost",
+        inputs: [
+            { type: "uint256", name: "tokenAmount", internalType: "uint256" },
+        ],
+    },
+    {
+        type: "function",
+        stateMutability: "view",
         outputs: [{ type: "address", name: "", internalType: "address" }],
         name: "fundReceiver",
         inputs: [],
@@ -248,6 +295,16 @@ export const presaleAbi = [
         outputs: [],
         name: "renounceOwnership",
         inputs: [],
+    },
+    {
+        type: "function",
+        stateMutability: "nonpayable",
+        outputs: [],
+        name: "rescueTokens",
+        inputs: [
+            { type: "address", name: "tokenAddress", internalType: "address" },
+            { type: "uint256", name: "amount", internalType: "uint256" },
+        ],
     },
     {
         type: "function",
